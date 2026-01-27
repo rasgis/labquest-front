@@ -29,11 +29,11 @@
         "./src/*"
       ]
     },
-    /* Security & Quality Checks */
     "noUncheckedIndexedAccess": true, /* Защита при обращении к массивам array[0] */
     "noImplicitReturns": true, /* Обязательный return во всех путях функции */
     "noFallthroughCasesInSwitch": true, /* Защита от забытого break в switch */
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true, /* Защита от разных регистров в файлах */
+    "noUnusedLocals": true /* Защита от неиспользуемых переменных */
   },
   "include": [
     "next-env.d.ts",

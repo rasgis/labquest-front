@@ -3,5 +3,6 @@ export interface CartItem {
     name: string;
     price: number;
     quantity: number;
-    article?: string; // Артикул может пригодиться в будущем
+    article?: string; // Артикул анализа
+    discount?: number; // Процент скидки
 }

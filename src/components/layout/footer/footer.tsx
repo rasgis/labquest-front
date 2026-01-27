@@ -24,11 +24,11 @@ export function Footer() {
                                 alt="LabQuest Logo"
                                 width={120}
                                 height={120}
-                                className="object-contain"
+                                className="object-contain w-[120px] h-[120px]"
                             />
                         </Link>
 
-                        <div className="text-xs text-text-muted space-y-1">
+                        <div className="text-xs text-text-main space-y-1">
                             <p>АО &quot;ЛабКвест&quot;</p>
                             <p>Юридический адрес - 121059, Москва,</p>
                             <p>Бережковская набережная, д. 20, стр. 13</p>
@@ -49,7 +49,7 @@ export function Footer() {
                                     <MapPin className="h-4 w-4" />
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-1 text-xs text-text-muted">
+                            <div className="flex flex-col gap-1 text-xs text-text-main">
                                 <span>Бережковская</span>
                                 <span>набережная, д. 20,</span>
                                 <span>стр. 13</span>
@@ -108,49 +108,49 @@ export function Footer() {
                     </div>
 
                     <div className="space-y-4">
-                        <ul className="space-y-3 text-sm text-text-muted">
-                            <li><Link href="#" className="hover:text-primary transition-colors">Адреса и время работы</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Анализы и цены</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Комплексные программы</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Выезд на дом</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">О компании</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Продукты</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Франшиза</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">3D-тур</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Наши специалисты</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">ЛабКвест Премиум</Link></li>
+                        <ul className="space-y-3 text-sm text-text-main">
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Адреса и время работы</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Анализы и цены</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Комплексные программы</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Выезд на дом</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">О компании</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Продукты</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Франшиза</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">3D-тур</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Наши специалисты</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">ЛабКвест Премиум</Link></li>
                         </ul>
                     </div>
 
                     <div className="space-y-4">
-                        <ul className="space-y-3 text-sm text-text-muted">
-                            <li><Link href="#" className="hover:text-primary transition-colors">Акции</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Клиникам</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Новости</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Статьи</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">СМИ о нас</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Популярная диагностика</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Личный кабинет партнера</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Юридическая информация</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Политика защиты и обработки<br />персональных данных</Link></li>
+                        <ul className="space-y-3 text-sm text-text-main">
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Акции</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Клиникам</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Новости</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Статьи</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">СМИ о нас</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Популярная диагностика</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Личный кабинет партнера</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Юридическая информация</Link></li>
+                            <li><Link href="#" className="hover:text-brand-blue-secondary transition-colors">Политика защиты и обработки<br />персональных данных</Link></li>
                         </ul>
                     </div>
 
                     <div className="space-y-6">
                         <div className="space-y-2">
                             <h3 className="text-lg font-medium text-text-main">Подпишитесь на наши рассылки</h3>
-                            <p className="text-xs text-text-muted">И первыми получайте самые интересные и выгодные предложения</p>
+                            <p className="text-xs text-text-main">И первыми получайте самые интересные и выгодные предложения</p>
                         </div>
 
                         <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                             <div className="grid grid-cols-2 gap-4">
                                 <Input
                                     placeholder="Имя"
-                                    className="h-9 bg-transparent border-t-0 border-x-0 border-b border-border rounded-none px-0 focus-visible:ring-0 focus-visible:border-primary transition-all pb-1 placeholder:text-text-muted"
+                                    className="h-9 border-border placeholder:text-muted-foreground"
                                 />
                                 <Input
                                     placeholder="E-mail"
-                                    className="h-9 bg-transparent border-t-0 border-x-0 border-b border-border rounded-none px-0 focus-visible:ring-0 focus-visible:border-primary transition-all pb-1 placeholder:text-text-muted"
+                                    className="h-9 border-border placeholder:text-muted-foreground"
                                 />
                             </div>
 
@@ -163,7 +163,7 @@ export function Footer() {
                                 <Button
                                     type="submit"
                                     variant="lime"
-                                    className="rounded-none px-8 font-bold"
+                                    className="rounded-none px-8 font-medium"
                                 >
                                     Подписаться
                                 </Button>

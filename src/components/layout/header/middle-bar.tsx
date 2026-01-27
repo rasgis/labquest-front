@@ -8,7 +8,7 @@ import { Button, Input } from '@/components/ui';
 export function MiddleBar() {
     return (
         <div className="bg-white py-4">
-            <div className="container mx-auto px-4 flex items-center justify-between gap-8">
+            <div className="container mx-auto px-4 flex items-center justify-between lg:gap-4 xl:gap-8">
 
                 <Link href="/" className="shrink-0 flex items-center gap-3">
                     <Image
@@ -27,9 +27,9 @@ export function MiddleBar() {
                     </div>
                 </Link>
 
-                <div className="flex-1 max-w-2xl flex">
+                <div className="flex-1 lg:max-w-md xl:max-w-2xl flex">
                     <div className="relative w-full">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-text-main" />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-text-main lg:text-xs xl:text-sm" />
                         <Input
                             placeholder="Введите название анализа или услуги"
                             className="pl-12 bg-bg-input border-transparent focus:bg-white h-12 rounded-l-xl rounded-r-none text-base placeholder:text-text-muted focus-visible:ring-0 focus-visible:ring-offset-0"
@@ -44,7 +44,7 @@ export function MiddleBar() {
                 </div>
 
                 <div className="flex items-center gap-6 shrink-0">
-                    <div className="hidden xl:block">
+                    <div className="hidden lg:block">
                         <Button
                             variant="lime"
                             size="lg"

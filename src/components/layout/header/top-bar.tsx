@@ -20,7 +20,7 @@ export function TopBar() {
     const cityName = currentCity === 'moskva' ? 'Москва' : currentCity;
 
     return (
-        <div className="bg-bg-soft text-xs py-2 border-b border-gray-200 hidden md:block">
+        <div className="bg-bg-soft text-xs py-2 hidden md:block">
             <div className="container mx-auto px-4 flex justify-between items-center">
                 <Button
                     variant="ghost"
@@ -52,7 +52,6 @@ export function TopBar() {
                                 height={20}
                                 className="w-5 h-5 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                             />
-                            {/* Счетчик товаров */}
                             {mounted && cartItemsCount > 0 && (
                                 <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-bg-blue-light text-[9px] font-bold text-brand-blue">
                                     {cartItemsCount}

@@ -13,7 +13,7 @@ export function AnalysisHeader({ analysis }: AnalysisHeaderProps) {
                 {analysis.name}
             </h1>
 
-            <div className="bg-[#FAFCFF] rounded-xl p-6 md:p-8 space-y-4 shadow-sm border border-[#E2E8F0]">
+            <div className="bg-bg-blue-soft rounded-xl p-6 md:p-8 space-y-4 border border-border">
                 <div className="text-sm text-text-muted mb-2">№ {analysis.article}</div>
 
                 <div className="grid sm:grid-cols-[160px_1fr] gap-x-4 gap-y-2 text-sm md:text-base">

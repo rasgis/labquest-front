@@ -1,95 +1,123 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Checkbox, Input } from '@/components/ui';
+import { Button, Input, Checkbox } from '@/components/ui';
+import { useCartStore } from '@/stores/useCartStore';
+import { cn } from '@/lib/utils';
 
 interface BasketSummaryProps {
-    totalPrice: number;
-    itemsCount: number;
     onCheckout: () => void;
 }
 
-export function BasketSummary({ totalPrice, itemsCount, onCheckout }: BasketSummaryProps) {
-    const [deliveryType, setDeliveryType] = useState<'home' | 'office'>('office');
+export function BasketSummary({ onCheckout }: BasketSummaryProps) {
+    const [deliveryType, setDeliveryType] = useState<'home' | 'office'>('home');
+    const { items } = useCartStore();
+    const totalBasePrice = items.reduce((acc, item) => {
+        return acc + item.price;
+    }, 0);
+    const totalOnlinePrice = items.reduce((acc, item) => {
+        const base = item.price;
+        const price = item.discount
+            ? Math.round(base * (1 - item.discount / 100) * 100) / 100
+            : base;
+        return acc + price;
+    }, 0);
 
     return (
-        <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-            {/* Выбор типа сдачи (Дома или офис) */}
+        <div className="rounded-2xl border border-border bg-white p-6 shadow-sm">
             <div className="flex items-center gap-6 mb-4">
-                <div className="flex items-center gap-2 cursor-pointer" onClick={() => setDeliveryType('home')}>
+
+                <div
+                    className="flex items-center gap-2 cursor-pointer group"
+                    onClick={() => setDeliveryType('home')}
+                >
                     <Checkbox
-                        id="home"
                         checked={deliveryType === 'home'}
                         readOnly
-                        className="rounded-sm"
+                        className="w-5 h-5 rounded-[4px] border-gray-300 checked:bg-brand-blue-secondary checked:border-brand-blue-secondary group-hover:border-brand-blue-secondary"
                     />
-                    <label htmlFor="home" className="text-sm font-bold text-[#333333] cursor-pointer">
+                    <span className={cn(
+                        "text-base select-none transition-colors",
+                        deliveryType === 'home' ? "font-medium text-brand-blue" : "font-medium text-text-main"
+                    )}>
                         Сдать на дому
-                    </label>
+                    </span>
                 </div>
 
-                <div className="flex items-center gap-2 cursor-pointer" onClick={() => setDeliveryType('office')}>
+                <div
+                    className="flex items-center gap-2 cursor-pointer group"
+                    onClick={() => setDeliveryType('office')}
+                >
                     <Checkbox
-                        id="office"
                         checked={deliveryType === 'office'}
                         readOnly
-                        className="rounded-sm"
+                        className="w-5 h-5 rounded-[4px] border-gray-300 checked:bg-brand-blue-secondary checked:border-brand-blue-secondary group-hover:border-brand-blue-secondary"
                     />
-                    <label htmlFor="office" className="text-sm font-bold text-[#333333] cursor-pointer">
+                    <span className={cn(
+                        "text-base select-none transition-colors",
+                        deliveryType === 'office' ? "font-medium text-brand-blue" : "font-medium text-text-main"
+                    )}>
                         Сдать в офисе
-                    </label>
+                    </span>
                 </div>
             </div>
 
-            {/* Блок адреса офиса (показываем только если выбран офис) */}
-            {deliveryType === 'office' && (
-                <div className="mb-6">
-                    <p className="text-xs text-gray-500 mb-2">
-                        Выбранный офис: <br />
-                        м. Новые Черемушки, ул. Гарибальди
+            <div className="mb-6 min-h-[40px]">
+                {deliveryType === 'home' ? (
+                    <p className="text-sm text-text-main leading-snug">
+                        После оформления заказа, наш оператор свяжется с вами и уточнит адрес
                     </p>
-                    <Button variant="primary" size="sm" className="bg-[#314f5e] hover:bg-[#253c48] h-8 text-xs px-4">
+                ) : (
+                    <Button
+                        className="bg-brand-blue hover:bg-brand-blue-accent h-9 text-xm px-4 font-medium rounded-md text-white transition-colors"
+                    >
                         Изменить офис
                     </Button>
-                </div>
-            )}
+                )}
+            </div>
 
-            {/* Промокод */}
-            <div className="mb-6">
-                <label className="text-sm font-bold text-[#333333] mb-2 block">
+            <div className="border-b border-border pb-4">
+                <label className="text-xl font-medium text-text-main mb-2 block">
                     Введите код купона для скидки:
                 </label>
                 <div className="flex gap-2">
                     <Input
-                        placeholder="Введите промокод"
-                        className="bg-[#EBF2F6] border-none text-sm placeholder:text-gray-400"
+                        placeholder="Введите код промокода"
+                        className="bg-bg-input border-none text-sm placeholder:text-muted-foreground h-10 w-60 rounded-lg focus-visible:ring-1 focus-visible:ring-brand-blue"
                     />
-                    <Button className="bg-lime-lab hover:bg-lime-lab-hover text-[#333333] font-bold min-w-[50px]">
-                        Применить
+                    <Button
+                        className="bg-lime-lab hover:bg-lime-lab-hover text-brand-blue font-bold w-12 h-10 rounded-lg p-0 shrink-0 transition-colors"
+                    >
+                        ОК
                     </Button>
                 </div>
             </div>
 
-            {/* Расчеты */}
-            <div className="space-y-3 mb-6 border-t border-gray-100 pt-4">
-                <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold text-gray-400">Итого без скидок:</span>
-                    <span className="text-lg font-bold text-[#333333]">{totalPrice.toLocaleString('ru-RU')} ₽</span>
+            <div className="pt-4 mb-6 space-y-3">
+                <div className="flex justify-between items-baseline border-b border-border pb-4">
+                    <span className="text-xl font-medium text-text-muted">Итого без скидок:</span>
+                    <span className="text-xl font-bold text-text-main">
+                        {totalBasePrice.toLocaleString('ru-RU')} ₽
+                    </span>
                 </div>
 
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-baseline border-b border-border pb-4">
                     <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold text-gray-400">При оплате на сайте:</span>
-                        <span className="bg-[#AA266F] text-white text-xs font-bold px-1 py-0.5 rounded">-5%</span>
+                        <span className="text-xl font-medium text-text-muted">При оплате на сайте:</span>
+                        {totalOnlinePrice < totalBasePrice && (
+                            <span className="bg-primary text-white text-xs font-bold px-1.5 py-0.5 rounded-[4px]">
+                                -5%
+                            </span>
+                        )}
                     </div>
-                    {/* Имитация скидки (просто для вида пока что) */}
-                    <span className="text-lg font-bold text-[#333333]">{(totalPrice * 0.95).toLocaleString('ru-RU', { maximumFractionDigits: 0 })} ₽</span>
+                    <span className="text-xl font-bold text-text-main">
+                        {totalOnlinePrice.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₽
+                    </span>
                 </div>
             </div>
 
-            {/*  Кнопка Оформить */}
             <Button
-                className="w-full bg-lime-lab hover:bg-lime-lab-hover text-[#333333] font-bold text-base h-12 rounded-sm shadow-none"
+                className="w-full bg-lime-lab hover:bg-lime-lab-hover text-brand-blue font-medium text-base h-12 rounded-lg shadow-none transition-colors"
                 onClick={onCheckout}
             >
                 Оформить заказ

@@ -15,32 +15,29 @@ export function CatalogSidebar({ selectedCategory, onCategorySelect }: CatalogSi
 
     return (
         <div className="bg-white rounded-2xl overflow-hidden border border-border">
-            <div className="flex text-sm font-bold text-center leading-tight">
-                <Button
-                    variant="ghost"
+            <div className="flex text-sm font-medium text-center leading-tight bg-bg-blue-soft">
+                <button
                     onClick={() => setActiveTab('analysis')}
                     className={cn(
-                        "flex-1 !h-auto !py-4 px-2 rounded-none transition-colors font-medium",
+                        "flex-1 py-4 px-4 transition-colors",
                         activeTab === 'analysis'
-                            ? "bg-white text-text-main shadow-none border-b-0 hover:bg-white cursor-default"
-                            : "bg-bg-blue-soft text-brand-blue border-l border-b border-border hover:bg-bg-blue-soft-hover"
+                            ? "bg-white text-text-main"
+                            : "text-text-main cursor-pointer hover:bg-bg-blue-lightest/50"
                     )}
                 >
                     Анализы
-                </Button>
-
-                <Button
-                    variant="ghost"
+                </button>
+                <button
                     onClick={() => setActiveTab('complex')}
                     className={cn(
-                        "flex-1 !h-auto !py-4 px-2 rounded-none transition-colors font-medium",
+                        "flex-1 py-4 px-4 transition-colors",
                         activeTab === 'complex'
-                            ? "bg-white text-text-main shadow-none border-l border-b-0 hover:bg-white cursor-default"
-                            : "bg-bg-blue-soft text-brand-blue border-l border-b border-border hover:bg-bg-blue-soft-hover"
+                            ? "bg-white text-text-main border-l border-border"
+                            : "text-text-main cursor-pointer border-l border-border hover:bg-bg-blue-lightest/50"
                     )}
                 >
                     Комплексные<br />исследования
-                </Button>
+                </button>
             </div>
 
             <div className="py-2 px-2 flex flex-col gap-1">

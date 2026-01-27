@@ -1,4 +1,4 @@
-import { Header, Footer, MobileMenu } from '@/components/layout/';
+import { Header, Footer, MobileMenu, MobileBottomNav } from '@/components/layout/';
 
 export default function PublicLayout({
     children,
@@ -13,6 +13,7 @@ export default function PublicLayout({
                 {children}
             </main>
             <Footer />
+            <MobileBottomNav />
         </div>
     );
 }

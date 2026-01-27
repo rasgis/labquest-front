@@ -15,14 +15,17 @@ interface RadioGroupItemProps extends React.InputHTMLAttributes<HTMLInputElement
 const RadioGroupItem = React.forwardRef<HTMLInputElement, RadioGroupItemProps>(
     ({ className, ...props }, ref) => {
         return (
-            <div className="relative flex items-center">
+            <div className="relative flex items-center justify-center h-4 w-4">
                 <input
                     type="radio"
-                    className="peer h-4 w-4 appearance-none rounded-full border border-primary text-primary shadow focus:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                    className={cn(
+                        "peer h-4 w-4 appearance-none rounded-full border border-brand-blue-secondary text-brand-blue-secondary shadow focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-blue-secondary disabled:cursor-not-allowed disabled:opacity-50",
+                        className
+                    )}
                     ref={ref}
                     {...props}
                 />
-                <span className="absolute left-[3px] top-[3px] h-2.5 w-2.5 rounded-full bg-primary opacity-0 transition-opacity peer-checked:opacity-100 pointer-events-none"></span>
+                <span className="absolute h-2 w-2 rounded-full bg-brand-blue-secondary opacity-0 transition-opacity peer-checked:opacity-100 pointer-events-none"></span>
             </div>
         );
     }

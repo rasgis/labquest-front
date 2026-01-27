@@ -31,7 +31,8 @@ export function AnalysisCard({ analysis }: AnalysisCardProps): React.ReactElemen
                 id: analysis.id,
                 name: analysis.name,
                 price: analysis.price,
-                article: analysis.article
+                article: analysis.article,
+                discount: analysis.discount,
             });
         }
     };

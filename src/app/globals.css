@@ -6,13 +6,12 @@
 
   /* Брендовые цвета */
 
-  --color-primary: #AA266F;
+  --color-primary: #B80E80;
   --color-primary-foreground: #FFFFFF;
-  --color-primary-hover: #8f1f5d;
-
-  --color-lime-lab: #D2E028;
+  --color-primary-hover: #a6006f;
+  --color-lime-lab: #CADE00;
   --color-lime-lab-foreground: #333333;
-  --color-lime-lab-hover: #c6d325;
+  --color-lime-lab-hover: #EBF8C7;
 
   --color-brand-blue: #234765;
   --color-brand-purple: #8B7CEC;
@@ -21,19 +20,33 @@
   --color-bg-blue-soft: #F2F9FF;
   --color-bg-blue-soft-hover: #E1F0FF;
   --color-brand-blue-secondary: #5885AB;
+  --color-brand-blue-accent: #41698B;
+  --color-brand-blue-accent-hover: #34536D;
+
+  --color-bg-modal-overlay: rgba(51, 51, 51, 0.8);
+  --color-bg-blue-lightest: #F2F5F8;
 
   /* Текст */
-  --text-main: #333333;
+  --text-main: #0F172A;
+  --text-main-dark: #1F2937;
   --text-brand: var(--color-brand-blue);
   --text-muted: #94A3B8;
 
   /* Фоны */
   --bg-soft: #F0F2F5;
-  --bg-pink: #CF5EAA;
+  --bg-pink: #AA266F;
   --bg-pink-soft: #FFF6FC;
-  --bg-blue-light: #D9EEFF;
+  --bg-blue-light: #D6ECFF;
+  --bg-blue-accent-soft: #E5F2FF;
   --bg-lime-light: #EAFFB8;
   --bg-input: #E9EEF4;
+  --color-brand-blue-border-light: #D9E6F2;
+
+  /* Акценты */
+  --color-brand-lime: #BEDE00;
+  --color-brand-teal: #008D95;
+  --color-brand-blue-deep: #314f5e;
+  --color-brand-blue-accent-dark: #0055A6;
 
   /* Системные */
   --color-destructive: #E31E24;
@@ -51,6 +64,11 @@
   --radius-lg: 0.5rem;
   --radius-md: 0.375rem;
   --radius-sm: 0.25rem;
+
+  /* Градиенты */
+  --gradient-button-start: #CADE00;
+  --gradient-button-middle: #FF58BC;
+  --gradient-button-end: #CADE00;
 }
 
 @theme inline {
@@ -76,13 +94,27 @@
   --color-brand-blue-secondary: var(--color-brand-blue-secondary);
 
   --color-text-main: var(--text-main);
+  --color-text-main-dark: var(--text-main-dark);
   --color-text-brand: var(--text-brand);
   --color-text-muted: var(--text-muted);
   --color-bg-soft: var(--bg-soft);
   --color-bg-pink-soft: var(--bg-pink-soft);
   --color-bg-blue-light: var(--bg-blue-light);
+  --color-bg-blue-accent-soft: var(--bg-blue-accent-soft);
   --color-bg-lime-light: var(--bg-lime-light);
   --color-bg-input: var(--bg-input);
+  --color-border-blue-light: var(--color-brand-blue-border-light);
+
+  --color-brand-lime: var(--color-brand-lime);
+  --color-brand-teal: var(--color-brand-teal);
+  --color-brand-blue-deep: var(--color-brand-blue-deep);
+  --color-brand-blue-accent-dark: var(--color-brand-blue-accent-dark);
+
+
+  --color-brand-blue-accent: var(--color-brand-blue-accent);
+  --color-brand-blue-accent-hover: var(--color-brand-blue-accent-hover);
+  --color-bg-modal-overlay: var(--color-bg-modal-overlay);
+  --color-bg-blue-lightest: var(--color-bg-blue-lightest);
 
   --color-destructive: var(--color-destructive);
   --color-destructive-foreground: var(--color-destructive-foreground);
@@ -126,7 +158,21 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+
+  .bg-brand-gradient {
+    background-image: linear-gradient(to right, #E2F285 0%, #FAB3C9 50%, #E2F285 100%);
+    background-size: 200% auto;
+    background-position: left center;
+    transition: background-position 0.3s ease-in-out, box-shadow 0.3s ease;
+  }
+
+  .bg-brand-gradient:hover {
+    background-position: right center;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
 }
+
 
 @layer components {
   .container {
@@ -134,5 +180,28 @@ body {
     max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .btn-gradient {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+    transition: all 0.3s;
+    background: linear-gradient(to right,
+        var(--gradient-button-start),
+        var(--gradient-button-middle),
+        var(--gradient-button-end));
+    background-size: 200% auto;
+    background-position: left center;
+  }
+
+  .btn-gradient:hover {
+    background-position: right center;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 }

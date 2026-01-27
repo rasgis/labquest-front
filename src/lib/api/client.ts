@@ -1,7 +1,6 @@
-import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 import { env } from '@/env';
 
-// Создаем инстанс
 const apiClient = axios.create({
   baseURL: env.NEXT_PUBLIC_API_URL,
   withCredentials: true, // разрешает отправку HttpOnly cookies
@@ -53,7 +52,7 @@ apiClient.interceptors.request.use((config: InternalAxiosRequestConfig): Interna
 
 // 3. Response Interceptor (Обработка ошибок авторизации)
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response: AxiosResponse) => response,
   async (error: AxiosError): Promise<never> => {
     const originalRequest = error.config;
 

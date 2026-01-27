@@ -179,6 +179,7 @@ export function CategoriesCarousel() {
                                         alt={category.title}
                                         fill
                                         className="object-contain drop-shadow-sm"
+                                        sizes="80px"
                                     />
                                 </div>
                             </div>

@@ -7,7 +7,6 @@ import { CatalogSidebar } from './catalog-sidebar';
 import { AnalysisHeader } from './analysis-header';
 import { AnalysisActionCard } from './analysis-action-card';
 import { AnalysisTabs } from './analysis-tabs';
-import { MobileActionFooter } from './mobile-action-footer';
 import { CategoryId } from '../lib/catalog-constants';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';

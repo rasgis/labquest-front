@@ -1,7 +1,6 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Включаем строгий режим React (помогает найти баги в эффектах)
   reactStrictMode: true,
 
   // Настройка заголовков безопасности
@@ -40,7 +39,6 @@ const nextConfig: NextConfig = {
   // Оптимизация для PWA (отключаем лишние sourcemaps в проде)
   productionBrowserSourceMaps: false,
 
-  // Отключаем индикаторы разработки
   // devIndicators: false,
 };
 

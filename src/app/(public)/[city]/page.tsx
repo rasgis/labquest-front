@@ -1,4 +1,4 @@
-import { HeroSlider, CategoriesCarousel, StocksCarousel, ServicesBlock } from '@/components/home';
+import { HeroSlider, CategoriesCarousel, StocksCarousel, ServicesBlock, QClinicBlock } from '@/components/home';
 
 interface PageProps {
   params: Promise<{
@@ -16,7 +16,7 @@ export default async function CityPage({ params }: PageProps) {
       <CategoriesCarousel />
       <StocksCarousel />
       <ServicesBlock />
-
+      <QClinicBlock />
     </main>
   );
 }

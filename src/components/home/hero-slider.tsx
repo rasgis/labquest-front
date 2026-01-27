@@ -140,8 +140,9 @@ export function HeroSlider() {
                                             src={slide.image}
                                             alt={slide.title}
                                             fill
-                                            className="object-cover object-center md:object-contain md:object-right-bottom"
+                                            className="object-cover object-center md:object-contain md:object-right-bottom lg:object-cover md:object-cover"
                                             priority={slide.id === 1}
+                                            sizes="(max-width: 768px) 100vw, 60vw"
                                         />
                                     </div>
                                 </div>
@@ -154,20 +155,22 @@ export function HeroSlider() {
                     <div className="custom-hero-pagination absolute left-1/2 -translate-x-1/2 flex gap-2 z-10" />
 
                     <div className="hidden md:flex gap-3 z-20">
-                        <button
+                        <Button
                             onClick={() => swiperRef.current?.slidePrev()}
-                            className="w-12 h-12 bg-lime-lab hover:bg-lime-lab-hover rounded-lg flex items-center justify-center transition-colors text-text-main"
+                            variant="lime"
+                            className="w-12 h-12 p-0 rounded-lg shadow-none"
                             aria-label="Previous slide"
                         >
                             <ChevronLeft className="w-6 h-6" />
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                             onClick={() => swiperRef.current?.slideNext()}
-                            className="w-12 h-12 bg-lime-lab hover:bg-lime-lab-hover rounded-lg flex items-center justify-center transition-colors text-text-main"
+                            variant="lime"
+                            className="w-12 h-12 p-0 rounded-lg shadow-none"
                             aria-label="Next slide"
                         >
                             <ChevronRight className="w-6 h-6" />
-                        </button>
+                        </Button>
                     </div>
                 </div>
 

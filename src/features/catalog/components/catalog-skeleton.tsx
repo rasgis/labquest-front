@@ -6,10 +6,10 @@ export function CatalogSkeleton(): React.ReactElement {
             <div className="flex flex-col lg:flex-row gap-8">
 
                 <aside className="w-full lg:w-[320px] shrink-0">
-                    <div className="bg-white rounded-2xl border border-[#E9EEF4] overflow-hidden">
-                        <div className="flex border-b border-[#E9EEF4]">
+                    <div className="bg-white rounded-2xl border border-bg-input overflow-hidden">
+                        <div className="flex border-b border-bg-input">
                             <Skeleton className="flex-1 h-14" />
-                            <Skeleton className="flex-1 h-14 bg-gray-50" />
+                            <Skeleton className="flex-1 h-14 bg-bg-soft/50" />
                         </div>
                         <div className="p-2 space-y-2">
                             {Array.from({ length: 8 }).map((_, i) => (
@@ -30,7 +30,7 @@ export function CatalogSkeleton(): React.ReactElement {
 
                     <div className="space-y-4">
                         {Array.from({ length: 4 }).map((_, i) => (
-                            <div key={i} className="bg-white rounded-2xl border border-[#E9EEF4] p-6 h-[200px] flex gap-6">
+                            <div key={i} className="bg-white rounded-2xl border border-bg-input p-6 h-[200px] flex gap-6">
                                 <div className="flex-1 space-y-4">
                                     <Skeleton className="h-4 w-20" />
                                     <Skeleton className="h-8 w-3/4" />

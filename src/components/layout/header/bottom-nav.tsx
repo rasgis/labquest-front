@@ -12,23 +12,23 @@ export function BottomNav(): React.ReactElement {
 
     return (
         <div className="border-t border-border py-4 hidden lg:block">
-            <div className="container mx-auto px-4 flex  justify-between gap-6">
+            <div className="container mx-auto px-4 flex justify-between lg:gap-1 xl:gap-8">
 
                 <div className="flex flex-col gap-2 shrink-0">
-                    <Button variant="lime" size="sm" className="w-48 justify-center shadow-sm text-[14px] font-medium">
+                    <Button variant="lime" size="sm" className="lg:w-36 xl:w-48 justify-center shadow-sm lg:text-xs xl:text-sm font-medium">
                         Телемедицина
                     </Button>
-                    <Button variant="primary" size="sm" className="w-48 justify-center shadow-sm text-[14px] font-medium ">
+                    <Button variant="primary" size="sm" className="lg:w-36 xl:w-48 justify-center shadow-sm lg:text-xs xl:text-sm font-medium">
                         Консилиум с экспертами
                     </Button>
                 </div>
 
                 <div className="flex-1 flex flex-col items-center justify-between h-full gap-2 pt-0.5">
 
-                    <div className="flex gap-2">
+                    <div className="flex lg:gap-1 xl:gap-2">
                         <Link
-                            href="#"
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[14px] font-medium text-text-main transition-all bg-gradient-to-r from-[#E2F285] via-[#FAB3C9] to-[#E2F285] bg-[length:200%_auto] bg-left hover:bg-right hover:shadow-sm"
+                            href={`/${currentCity}/catalog`}
+                            className="flex items-center lg:gap-1.5 xl:gap-1.5 lg:px-2 xl:px-3 py-1.5 rounded-md lg:text-xs xl:text-sm font-medium text-text-main transition-all bg-brand-gradient"
                         >
                             <Image
                                 src="/icons/button-icons/star.svg"
@@ -41,7 +41,7 @@ export function BottomNav(): React.ReactElement {
                         </Link>
                         <Link
                             href="#"
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[14px] font-medium text-text-main transition-all bg-gradient-to-r from-[#E2F285] via-[#FAB3C9] to-[#E2F285] bg-[length:200%_auto] bg-left hover:bg-right hover:shadow-sm"
+                            className="flex items-center lg:gap-1.5 xl:gap-1.5 lg:px-2 xl:px-3 py-1.5 rounded-md lg:text-xs xl:text-sm font-medium text-text-main transition-all bg-brand-gradient"
                         >
                             <Image
                                 src="/icons/button-icons/onkonavi.svg"
@@ -54,15 +54,15 @@ export function BottomNav(): React.ReactElement {
                         </Link>
                         <Link
                             href="#"
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[14px] font-medium text-text-main transition-all bg-gradient-to-r from-[#E2F285] via-[#FAB3C9] to-[#E2F285] bg-[length:200%_auto] bg-left hover:bg-right hover:shadow-sm"
+                            className="flex items-center lg:gap-1.5 xl:gap-1.5 lg:px-2 xl:px-3 py-1.5 rounded-md lg:text-xs xl:text-sm font-medium text-text-main transition-all bg-brand-gradient"
                         >
-                            <SquareUserRound className="h-5 w-5" />
-                            Doctor Q - Назначение анализов
+                            <SquareUserRound className="h-4 w-4 xl:h-5 xl:w-5" />
+                            <span className="truncate">Doctor Q - Назначение анализов</span>
                         </Link>
                     </div>
 
-                    <nav className="flex flex-nowrap justify-center items-center gap-x-3 gap-y-2 text-sm font-medium text-text-main">
-                        <Link href="#" className="flex flex-1 items-center gap-1.5 hover:underline">
+                    <nav className="flex flex-nowrap justify-center items-center lg:gap-x-4 xl:gap-x-3 gap-y-2 lg:text-xs xl:text-sm font-medium text-text-main">
+                        <Link href="#" className="flex flex-1 items-center lg:gap-1 xl:gap-1.5 hover:text-brand-blue-secondary ">
                             <Image
                                 src="/icons/button-icons/discount.svg"
                                 alt="%"
@@ -72,16 +72,16 @@ export function BottomNav(): React.ReactElement {
                             />
                             Акции
                         </Link>
-                        <Link href={`/${currentCity}/catalog`} className="flex flex-1 hover:text-primary transition whitespace-nowrap">Анализы и цены</Link>
-                        <Link href="#" className="flex flex-1 hover:text-primary transition whitespace-nowrap">Адреса и офисы</Link>
-                        <Link href="#" className="flex flex-1 hover:text-primary transition whitespace-nowrap">Запись к врачу</Link>
-                        <Link href="#" className="flex flex-1 hover:text-primary transition whitespace-nowrap">Капельницы</Link>
-                        <Link href="#" className="flex flex-1 hover:text-primary transition whitespace-nowrap">Check-Up</Link>
-                        <Link href="#" className="hover:text-primary transition">Q test - тест для самовзятия</Link>
+                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Анализы<span className="lg:hidden xl:inline"> и цены</span></Link>
+                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Адреса<span className="lg:hidden xl:inline"> и офисы</span></Link>
+                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Запись<span className="lg:hidden xl:inline"> к врачу</span></Link>
+                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Капельницы</Link>
+                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Check-Up</Link>
+                        <Link href="#" className="hover:text-brand-blue-secondary transition">Q test - тест для самовзятия</Link>
                     </nav>
 
                     <nav className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-xs font-normal text-text-main">
-                        <Link href="#" className="hover:text-primary transition">Личный кабинет</Link>
+                        <Link href="#" className="hover:text-brand-blue-secondary transition">Личный кабинет</Link>
 
                         <NavDropdown
                             title="Пациентам"
@@ -130,32 +130,29 @@ export function BottomNav(): React.ReactElement {
                     </nav>
                 </div>
 
-                <div className="flex flex-col justify-between  shrink-0">
+                <div className="flex flex-col justify-between shrink-0">
                     <div className="flex flex-col gap-2">
                         <Button
                             variant="outline"
                             size="sm"
-                            className="h-10 w-54 justify-start gap-3 pl-1 pr-4 text-xs font-medium border-border text-text-main hover:bg-gray-50 bg-white rounded-md"
+                            className="h-10 lg:w-32 xl:w-54 justify-start lg:gap-1 xl:gap-3 pl-1 pr-1 text-[10px] xl:text-xs font-medium border-border text-text-main hover:bg-gray-50 bg-white rounded-md"
                         >
                             <div className="flex h-7 w-7 items-center justify-center rounded-sm bg-lime-lab text-white shrink-0">
                                 <Activity className="h-4 w-4" />
                             </div>
-                            Расшифровка анализов
+                            <span className="truncate">Расшифровка анализов</span>
                         </Button>
                         <Button
                             variant="outline"
                             size="sm"
-                            className="h-10 w-54 justify-start gap-3 pl-1 pr-4 text-xs font-medium border-border text-text-main hover:bg-gray-50 bg-white rounded-md"
+                            className="h-10 lg:w-32 xl:w-54 justify-start lg:gap-1 xl:gap-3 pl-1 pr-1 text-[10px] xl:text-xs font-medium border-border text-text-main hover:bg-gray-50 bg-white rounded-md"
                         >
                             <div className="flex h-7 w-7 items-center justify-center rounded-sm bg-lime-lab text-white shrink-0">
                                 <FileText className="h-4 w-4" />
                             </div>
-                            Результаты анализов
+                            <span className="truncate">Результаты анализов</span>
                         </Button>
                     </div>
-
-
-
                 </div>
 
             </div>

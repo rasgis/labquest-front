@@ -25,7 +25,8 @@ export function MobileActionFooter({ analysis }: MobileActionFooterProps) {
                 id: analysis.id,
                 name: analysis.name,
                 price: analysis.price,
-                article: analysis.article
+                article: analysis.article,
+                discount: analysis.discount,
             });
         }
     };

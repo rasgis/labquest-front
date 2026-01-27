@@ -20,8 +20,8 @@ export function CheckoutSteps({ currentStep }: CheckoutStepsProps) {
                     <span
                         key={step.id}
                         className={cn(
-                            "flex-1 text-center first:text-left last:text-right",
-                            currentStep >= step.id ? "text-[#333333]" : "text-gray-400"
+                            "flex-1 text-center first:text-left last:text-right text-lg",
+                            currentStep >= step.id ? "text-brand-blue" : "text-muted-foreground"
                         )}
                     >
                         {step.name}
@@ -29,7 +29,7 @@ export function CheckoutSteps({ currentStep }: CheckoutStepsProps) {
                 ))}
             </div>
 
-            <div className="relative h-2 w-full bg-gray-200 rounded-none overflow-hidden">
+            <div className="relative h-4 w-full bg-gray-200 rounded-none overflow-hidden">
                 <div
                     className="absolute top-0 left-0 h-full bg-lime-lab transition-all duration-300 ease-in-out"
                     style={{ width: `${(currentStep / steps.length) * 100}%` }}

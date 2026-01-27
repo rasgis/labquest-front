@@ -26,14 +26,15 @@ export function AnalysisActionCard({ analysis }: AnalysisActionCardProps) {
                 id: analysis.id,
                 name: analysis.name,
                 price: analysis.price,
-                article: analysis.article
+                article: analysis.article,
+                discount: analysis.discount,
             });
         }
     };
 
     return (
         <div className="space-y-4">
-            <div className="bg-[#F9FEE7] border border-[#DEF4A2] rounded-2xl p-6">
+            <div className="bg-bg-lime-light border border-brand-lime rounded-2xl p-6">
                 <div className="text-sm text-text-muted mb-1">Стоимость анализа</div>
                 <div className="text-3xl font-bold text-text-main mb-3">
                     {analysis.price.toLocaleString('ru-RU')} ₽
@@ -85,19 +86,21 @@ export function AnalysisActionCard({ analysis }: AnalysisActionCardProps) {
 
             <Button
                 variant="outline"
-                className="w-full h-14 rounded-2xl border-pink-300 text-text-main bg-bg-pink-soft hover:bg-pink-50 hover:border-pink-400 font-medium text-base justify-center transition-colors shadow-sm"
+                className="w-full h-14 rounded-2xl border-primary/20 text-text-main bg-bg-pink-soft hover:bg-primary/5 hover:border-primary/40 font-medium text-base justify-center transition-colors shadow-sm"
             >
                 Записаться на прием врача
             </Button>
 
-            <div className="flex items-center justify-between p-4 rounded-2xl bg-white group cursor-pointer hover:transition-colors border border-transparent hover:shadow-sm">
+            <div className="flex items-center justify-between p-4 rounded-2xl bg-white group cursor-pointer hover:transition-colors border border-transparent hover:bg-lime-lab-hover active:bg-lime-lab">
                 <div className="flex items-center gap-3">
                     <FileText className="w-6 h-6 text-text-main" />
-                    <span className="font-bold text-text-main text-sm">Пример результата</span>
+                    <span className="font-medium text-text-main text-sm">Пример результата</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-text-muted group-hover:text-primary transition-colors">
-                    Скачать файл
-                    <ArrowRight className="w-4 h-4" />
+                <div className="flex items-center gap-2 text-xs text-text-muted transition-colors">
+                    <span className="group-hover:text-text-main">Скачать файл</span>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full border border-text-main group-hover:bg-transparent">
+                        <ArrowRight className="w-3 h-3 text-text-main" />
+                    </div>
                 </div>
             </div>
         </div>

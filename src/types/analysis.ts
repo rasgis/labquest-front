@@ -6,12 +6,13 @@ export interface Analysis {
     time: string; // Срок выполнения 
     description?: string; // Описание анализа
     biomaterial?: string; // Биоматериал
-    preparation?: string; // Подготовка (HTML)
-    interpretation?: string; // Интерпретация (HTML)
-    indications?: string; // Показания (HTML)
+    preparation?: string; // Подготовка
+    interpretation?: string; // Интерпретация
+    indications?: string; // Показания
     relatedIds?: string[]; // Сопутствующие анализы
     category: string; // Категория анализа
     method?: string; // Метод исследования
     synonyms?: string; // Синонимы
     biomaterialPrice: number; // Стоимость взятия биоматериала
+    discount?: number; // Процент скидки
 }
