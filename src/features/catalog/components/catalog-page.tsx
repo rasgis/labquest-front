@@ -1,97 +1,161 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { LayoutList } from 'lucide-react';
+import { useMemo, Suspense, useState } from 'react';
+import { useSearchParams, usePathname } from 'next/navigation';
+import { LayoutList, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { Button, Skeleton } from '@/components/ui';
 import { Analysis } from '@/types/analysis';
 import { AnalysisCard } from './analysis-card';
-import { CatalogSidebar } from './catalog-sidebar';
-import { CatalogTopFilters } from './catalog-top-filters';
-import { CategoryId } from '../lib/catalog-constants';
-import { Button } from '@/components/ui';
+
 import { MobileCatalogDialog } from './mobile-catalog-dialog';
 import { MobileFiltersDialog } from './mobile-filters-dialog';
-import { cn } from '@/lib/utils';
+import { findCategoryBySlug } from '@/lib/find-category';
+import {
+    ANALYSIS_CATEGORIES,
+    COMPLEX_CATEGORIES,
+} from '../api/get-analyses';
 
 interface CatalogPageProps {
     analyses: Analysis[];
 }
 
 export function CatalogPage({ analyses }: CatalogPageProps): React.ReactElement {
-    const [selectedCategory, setSelectedCategory] = useState<CategoryId | null>(null);
+    return (
+        <Suspense fallback={<PageSkeleton />}>
+            <CatalogPageContent analyses={analyses} />
+        </Suspense>
+    );
+}
+
+function PageSkeleton(): React.ReactElement {
+    return (
+        <div className="space-y-6">
+            <Skeleton className="h-8 w-64" />
+            <div className="space-y-4">
+                {Array.from({ length: 4 }).map((_, i) => (
+                    <Skeleton key={i} className="h-32 w-full rounded-2xl" />
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function CatalogPageContent({ analyses }: CatalogPageProps): React.ReactElement {
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+
+    const city = pathname.split('/')[1] || 'moskva';
+
+    const activeTabRaw = searchParams.get('tab');
+    const activeTab = (activeTabRaw === 'complex' ? 'complex' : 'analysis');
+    const activeCategorySlug = searchParams.get('category');
+
+    const currentCategories = activeTab === 'analysis' ? ANALYSIS_CATEGORIES : COMPLEX_CATEGORIES;
+    const activeCategory = findCategoryBySlug(currentCategories, activeCategorySlug);
+
+    const visibleSubcategories = activeCategory?.children || [];
+
+    const filteredAnalyses = useMemo(() => {
+        if (!activeCategory) {
+            return analyses.filter(a => a.badges?.includes('popular') || a.badges?.includes('hit'));
+        }
+
+        const allCategorySlugs = [
+            activeCategory.slug,
+            ...(activeCategory.children?.map(child => child.slug) || [])
+        ];
+
+        return analyses.filter(a => allCategorySlugs.includes(a.categorySlug));
+    }, [activeCategory, analyses]);
+
+    const pageTitle = activeCategory?.name || 'Популярные анализы';
+
+    return (
+        <>
+            <MobileHeader pageTitle={pageTitle} />
+
+            <h1 className="text-2xl lg:text-3xl font-bold text-text-main mb-6 hidden lg:block">
+                {pageTitle}
+            </h1>
+
+            <div className="space-y-6">
+                {visibleSubcategories.length > 0 && (
+                    <div className="flex flex-col gap-3">
+                        {visibleSubcategories.map((sub) => (
+                            <Link
+                                key={sub.id}
+                                href={`/${city}/catalog?tab=${activeTab}&category=${sub.slug}`}
+                                className={cn(
+                                    "w-full bg-white border border-gray-200 rounded-xl px-6 py-4",
+                                    "flex items-center justify-between",
+                                    "hover:border-brand-blue hover:shadow-md transition-all group"
+                                )}
+                            >
+                                <span className="font-semibold text-text-main group-hover:text-brand-blue text-lg">
+                                    {sub.name}
+                                </span>
+                                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-brand-blue" />
+                            </Link>
+                        ))}
+                    </div>
+                )}
+
+                <div className="flex flex-col gap-4">
+                    {filteredAnalyses.length > 0 ? (
+                        filteredAnalyses.map((analysis) => (
+                            <AnalysisCard
+                                key={analysis.id}
+                                analysis={analysis}
+                            />
+                        ))
+                    ) : (
+                        <div className="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+                            <p className="text-gray-500">
+                                {activeCategory
+                                    ? "В этой категории пока нет анализов"
+                                    : "Список популярных анализов пуст"
+                                }
+                            </p>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </>
+    );
+}
+
+function MobileHeader({ pageTitle }: { pageTitle: string }): React.ReactElement {
     const [isCatalogOpen, setIsCatalogOpen] = useState(false);
     const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
-    const filteredAnalyses = useMemo(() => {
-        if (!selectedCategory) {
-            return analyses;
-        }
-        return analyses;
-    }, [analyses, selectedCategory]);
-
     return (
-        <div className="container mx-auto px-4 py-8">
-
-            <div className="mb-8 hidden lg:block">
-                <CatalogTopFilters />
-            </div>
-
-            <div className="lg:hidden mb-8">
-                <h1 className="text-2xl font-medium text-text-main mb-6">
-                    Анализы - ТОП 30
+        <>
+            <div className="lg:hidden mb-6">
+                <h1 className="text-2xl font-semibold text-text-main mb-4">
+                    {pageTitle}
                 </h1>
-
-                <div className="flex items-center gap-8">
+                <div className="flex gap-3">
                     <Button
                         onClick={() => setIsCatalogOpen(true)}
-                        className={cn(
-                            "w-[218px] h-12 rounded-xl flex items-center justify-center gap-4 text-white text-lg font-medium shadow-lg",
-                            "bg-brand-blue-accent hover:bg-brand-blue-accent-hover transition-colors"
-                        )}
+                        className="flex-1 bg-brand-blue text-white rounded-xl h-12 shadow-sm"
                     >
-                        <LayoutList className="w-6 h-6" />
-                        Каталог
+                        <LayoutList className="mr-2 w-5 h-5" /> Каталог
                     </Button>
-
                     <Button
-                        variant="ghost"
+                        variant="outline"
                         onClick={() => setIsFiltersOpen(true)}
-                        className="text-brand-blue-accent hover:text-brand-blue-accent-hover font-medium text-base h-auto p-0 underline underline-offset-4 decoration-current transition-colors"
+                        className="px-6 rounded-xl h-12 border-brand-blue text-brand-blue font-medium"
                     >
                         Фильтры
                     </Button>
                 </div>
             </div>
 
-            <div className="flex flex-col lg:flex-row gap-8">
-
-                <aside className="w-full lg:w-[320px] shrink-0 hidden lg:block">
-                    <CatalogSidebar
-                        selectedCategory={selectedCategory}
-                        onCategorySelect={setSelectedCategory}
-                    />
-                </aside>
-
-                <main className="flex-1 min-w-0">
-                    <div className="hidden lg:flex items-center justify-between mb-6">
-                        <h1 className="text-2xl md:text-3xl font-medium text-text-main">
-                            Анализы - ТОП 30
-                        </h1>
-                    </div>
-
-                    <div className="space-y-1">
-                        {filteredAnalyses.map((analysis) => (
-                            <AnalysisCard key={analysis.id} analysis={analysis} />
-                        ))}
-                    </div>
-                </main>
-
-            </div>
-
             <MobileCatalogDialog
                 isOpen={isCatalogOpen}
                 onClose={() => setIsCatalogOpen(false)}
-                selectedCategory={selectedCategory}
-                onCategorySelect={setSelectedCategory}
             />
 
             <MobileFiltersDialog
@@ -99,6 +163,6 @@ export function CatalogPage({ analyses }: CatalogPageProps): React.ReactElement 
                 onClose={() => setIsFiltersOpen(false)}
                 onApply={() => { }}
             />
-        </div>
+        </>
     );
 }

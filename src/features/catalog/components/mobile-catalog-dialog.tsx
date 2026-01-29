@@ -1,29 +1,50 @@
 'use client';
 
+import { useRouter, useSearchParams, useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui';
-import { CATEGORIES, CategoryId } from '../lib/catalog-constants';
+import {
+    ANALYSIS_CATEGORIES,
+    COMPLEX_CATEGORIES
+} from '../api/get-analyses';
+import { findCategoryBySlug } from '@/lib/find-category';
 
 interface MobileCatalogDialogProps {
     isOpen: boolean;
     onClose: () => void;
-    selectedCategory: CategoryId | null;
-    onCategorySelect: (id: CategoryId | null) => void;
 }
 
 export function MobileCatalogDialog({
     isOpen,
     onClose,
-    selectedCategory,
-    onCategorySelect
 }: MobileCatalogDialogProps): React.ReactElement {
-    const [activeTab, setActiveTab] = useState<'analysis' | 'complex'>('analysis');
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const params = useParams();
 
-    const handleSelect = (id: CategoryId) => {
-        onCategorySelect(id);
+    const activeTabRaw = searchParams.get('tab');
+    const activeTab = (activeTabRaw === 'complex' ? 'complex' : 'analysis');
+    const activeCategorySlug = searchParams.get('category');
+
+    const categories = activeTab === 'analysis' ? ANALYSIS_CATEGORIES : COMPLEX_CATEGORIES;
+    const selectedCategory = findCategoryBySlug(categories, activeCategorySlug);
+
+    const handleTabChange = (newTab: 'analysis' | 'complex'): void => {
+        const city = (params.city as string) || 'moskva';
+        router.push(`/${city}/catalog?tab=${newTab}`);
+    };
+
+    const handleCategorySelect = (categorySlug: string): void => {
+        const city = (params.city as string) || 'moskva';
+        const currentTab = searchParams.get('tab') || 'analysis';
+
+        if (activeCategorySlug === categorySlug) {
+            router.push(`/${city}/catalog?tab=${currentTab}`);
+        } else {
+            router.push(`/${city}/catalog?tab=${currentTab}&category=${categorySlug}`);
+        }
         onClose();
     };
 
@@ -31,18 +52,15 @@ export function MobileCatalogDialog({
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    {/* Оверлей */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="absolute inset-0 bg-bg-modal-overlay backdrop-blur-sm"
+                        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
                     />
 
-                    {/* Контейнер модального окна */}
                     <div className="relative w-full max-w-[380px] flex flex-col items-center">
-                        {/* Кнопка закрытия */}
                         <Button
                             variant="ghost"
                             size="icon"
@@ -52,56 +70,55 @@ export function MobileCatalogDialog({
                             <X className="w-6 h-6" />
                         </Button>
 
-                        {/* Карточка контента */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
                             className="w-full bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]"
                         >
-                            {/* Табы */}
-                            <div className="flex text-sl font-medium text-center leading-tight bg-bg-blue-soft">
+                            <div className="flex text-sm font-medium text-center leading-tight bg-bg-blue-soft border-b border-border">
                                 <button
-                                    onClick={() => setActiveTab('analysis')}
+                                    onClick={() => handleTabChange('analysis')}
                                     className={cn(
                                         "flex-1 py-4 px-4 transition-colors",
                                         activeTab === 'analysis'
-                                            ? "bg-white text-text-main"
+                                            ? "bg-white text-text-main font-semibold"
                                             : "text-text-main hover:bg-bg-blue-lightest/50"
                                     )}
                                 >
                                     Анализы
                                 </button>
                                 <button
-                                    onClick={() => setActiveTab('complex')}
+                                    onClick={() => handleTabChange('complex')}
                                     className={cn(
-                                        "flex-1 py-4 px-4 transition-colors",
+                                        "flex-1 py-4 px-4 transition-colors border-l border-border",
                                         activeTab === 'complex'
-                                            ? "bg-white text-text-main border-l border-border"
-                                            : "text-text-main border-l border-border hover:bg-bg-blue-lightest/50"
+                                            ? "bg-white text-text-main font-semibold"
+                                            : "text-text-main hover:bg-bg-blue-lightest/50"
                                     )}
                                 >
-                                    Комплексные<br />исследования
+                                    Комплексные
                                 </button>
                             </div>
 
-                            {/* Список категорий */}
-                            <div className="flex-1 overflow-y-auto py-3 px-2 flex flex-col gap-0.5 scrollbar-thin">
-                                {CATEGORIES.map((category) => (
+                            <div className="flex-1 overflow-y-auto py-3 px-2 flex flex-col gap-0.5">
+                                {categories.map((category) => (
                                     <button
                                         key={category.id}
-                                        onClick={() => handleSelect(category.id)}
+                                        onClick={() => handleCategorySelect(category.slug)}
                                         className={cn(
                                             "w-full flex items-start gap-3 px-4 py-2.5 text-left transition-colors rounded-lg",
                                             "text-text-main text-[15px] leading-snug",
-                                            selectedCategory === category.id
+                                            selectedCategory?.id === category.id
                                                 ? "bg-bg-blue-soft text-brand-blue font-medium"
                                                 : "hover:bg-bg-blue-soft/50"
                                         )}
                                     >
-                                        <span className="w-2 h-2 rounded-full bg-lime-lab mt-1.5 shrink-0" />
-                                        <span>{category.label}</span>
+                                        <span className={cn(
+                                            "w-2 h-2 rounded-full mt-1.5 shrink-0 transition-colors",
+                                            selectedCategory?.id === category.id ? "bg-primary" : "bg-lime-lab"
+                                        )} />
+                                        <span>{category.name}</span>
                                     </button>
                                 ))}
                             </div>

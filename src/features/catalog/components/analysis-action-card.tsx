@@ -27,7 +27,6 @@ export function AnalysisActionCard({ analysis }: AnalysisActionCardProps) {
                 name: analysis.name,
                 price: analysis.price,
                 article: analysis.article,
-                discount: analysis.discount,
             });
         }
     };

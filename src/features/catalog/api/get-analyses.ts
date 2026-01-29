@@ -1,13 +1,39 @@
-import { Analysis } from "@/types/analysis";
+import { Analysis, Category } from "@/types/analysis";
+
+// ВАЖНО: Мы используем id: string, так как это было в вашем исходном коде.
+// Если решите перейти на number, просто уберите кавычки у id.
+
+export const ANALYSIS_CATEGORIES: Category[] = [
+    {
+        id: 100, slug: 'covid-19', name: 'Covid-19', productsCount: 12,
+        children: [
+            { id: 101, slug: 'pcr-test', name: 'ПЦР-тест на коронавирус', productsCount: 3 },
+            { id: 102, slug: 'antibody', name: 'Анализ на антитела', productsCount: 4 },
+        ]
+    },
+    { id: 200, slug: 'biochemistry', name: 'Биохимические исследования', productsCount: 120 },
+    { id: 300, slug: 'hormones', name: 'Гормоны', productsCount: 35 },
+    { id: 400, slug: 'general', name: 'Общеклинические исследования', productsCount: 45 },
+    { id: 500, slug: 'vitamins', name: 'Витамины', productsCount: 15 },
+];
+
+export const COMPLEX_CATEGORIES: Category[] = [
+    { id: 901, slug: 'woman-health', name: 'Женское здоровье', productsCount: 5 },
+    { id: 902, slug: 'man-health', name: 'Мужское здоровье', productsCount: 4 },
+    { id: 903, slug: 'checkup', name: 'Чек-апы', productsCount: 8 },
+];
 
 const MOCK_DATA: Analysis[] = [
+    // --- 1. Популярные и Общеклинические ---
     {
         id: "1",
         article: "15.105",
+        slug: "clinical-blood-test", // ЧПУ
+        categorySlug: "general",     // Связь с категорией "Общеклинические"
         name: "Клинический анализ крови: общий анализ, лейкоформула, СОЭ",
         price: 690,
-        time: "1 день",
-        category: "popular",
+        oldPrice: null,
+        deadline: "1 день",
         biomaterial: "Венозная кровь",
         method: "Проточная цитофлуометрия, капиллярная микрофотометрия",
         description: "Клинический анализ крови (КАК) — это одно из самых распространенных лабораторных исследований, которое используется для оценки общего состояния здоровья. Он включает в себя определение количества эритроцитов, лейкоцитов, тромбоцитов, уровня гемоглобина и скорости оседания эритроцитов (СОЭ).",
@@ -24,18 +50,23 @@ const MOCK_DATA: Analysis[] = [
             Профилактическое обследование.
             Мониторинг проводимой терапии.
         `,
-        synonyms: "Клинический анализ крови, Complete Blood Count (CBC) with Differential, ESR, Общий анализ крови с лейкоцитарной формулой и СОЭ, ОАК, клинический анализ крови, общеклинический анализ крови, ОАК, КАК",
+        synonyms: "ОАК, CBC, ESR, общий анализ крови",
         relatedIds: ["4", "5"],
         biomaterialPrice: 150,
-        discount: 5,
+        discount: 0,
+        badges: ["popular"], // <--- ХИТ
     },
+    // --- 2. Витамины ---
     {
         id: "2",
         article: "22.101",
+        slug: "vitamin-d",
+        categorySlug: "vitamins", // Связь с категорией "Витамины"
         name: "Витамин D, 25-OH (кальциферол)",
         price: 1990,
-        time: "1 день",
-        category: "vitamins",
+        oldPrice: 2500, // Пример старой цены
+        discount: 20,
+        deadline: "1 день",
         biomaterial: "Венозная кровь",
         method: "Хемилюминесцентный иммуноанализ",
         description: "Исследование уровня витамина D в крови, необходимого для усвоения кальция и фосфора, а также для поддержания иммунитета.",
@@ -53,18 +84,21 @@ const MOCK_DATA: Analysis[] = [
             Остеопороз.
             Контроль терапии препаратами витамина D.
         `,
-        synonyms: "Витамин Д, 25-гидроксивитамин D, 25-OH vitamin D, Calcidiol, 25-hydroxycalciferol",
-        relatedIds: ["1", "4", "5"],
+        synonyms: "Vitamin D, 25-OH",
+        relatedIds: ["1", "5"],
         biomaterialPrice: 350,
-        discount: 5,
+        badges: ["popular", "discount"], // <--- И ХИТ, И СКИДКА
     },
+    // --- 3. Гормоны ---
     {
         id: "3",
         article: "31.002",
+        slug: "ttg-hormone",
+        categorySlug: "hormones",
         name: "Тиреотропный гормон (ТТГ)",
         price: 550,
-        time: "1 день",
-        category: "hormones",
+        oldPrice: null,
+        deadline: "1 день",
         biomaterial: "Венозная кровь",
         method: "Иммунохемилюминесцентный анализ",
         description: "Основной регулятор функции щитовидной железы. Используется для скрининга дисфункций щитовидной железы.",
@@ -82,18 +116,22 @@ const MOCK_DATA: Analysis[] = [
             Контроль лечения заболеваний щитовидной железы.
             Обследование при бесплодии, аменорее.
         `,
-        synonyms: "ТТГ, TSH, Thyroid Stimulating Hormone, Тиротропин, Тиреотропин",
-        relatedIds: ["1", "2", "4"],
+        synonyms: "TSH, Тиротропин",
+        relatedIds: ["1", "2"],
         biomaterialPrice: 200,
-        discount: 5,
+        discount: 0,
+        badges: ["popular"],
     },
+    // --- 4. Биохимия ---
     {
         id: "4",
         article: "40.120",
+        slug: "glucose",
+        categorySlug: "biochemistry",
         name: "Глюкоза (в крови)",
         price: 280,
-        time: "1 день",
-        category: "biochemistry",
+        oldPrice: null,
+        deadline: "1 день",
         biomaterial: "Венозная кровь",
         method: "Гексокиназный метод",
         description: "Основной тест для диагностики сахарного диабета и контроля уровня сахара в крови.",
@@ -112,18 +150,21 @@ const MOCK_DATA: Analysis[] = [
             Ожирение.
             Беременность.
         `,
-        synonyms: "Глюкоза крови, Сахар крови, Blood glucose, Glucose, Fasting blood sugar",
-        relatedIds: ["1", "2", "5"],
+        synonyms: "Сахар крови, Glucose",
+        relatedIds: ["1", "5"],
         biomaterialPrice: 100,
-        discount: 5,
+        discount: 0,
+        badges: [],
     },
     {
         id: "5",
         article: "11.200",
+        slug: "ferritin",
+        categorySlug: "biochemistry",
         name: "Ферритин",
         price: 1490,
-        time: "1 день",
-        category: "biochemistry",
+        oldPrice: null,
+        deadline: "1 день",
         biomaterial: "Венозная кровь",
         method: "Иммунотурбидиметрия",
         description: "Показатель запасов железа в организме. Важен для диагностики анемии.",
@@ -142,18 +183,22 @@ const MOCK_DATA: Analysis[] = [
             Скрытый дефицит железа.
             Оценка запасов железа в организме.
         `,
-        synonyms: "Ferritin, Железосвязывающий белок, Депонированное железо",
-        relatedIds: ["1", "2", "4"],
+        synonyms: "Ferritin",
+        relatedIds: ["1", "4"],
         biomaterialPrice: 250,
-        discount: 5,
+        discount: 0,
+        badges: [],
     },
+    // --- 5. Инфекции (Дерматофиты) ---
     {
         id: "6",
         article: "P717",
-        name: "Дерматофиты. Выявление ДНК Trichophyton, Epidermophyton, Microsporum",
+        slug: "dermatophytes",
+        categorySlug: "infections",
+        name: "Дерматофиты. Выявление ДНК (ПЦР)",
         price: 1415,
-        time: "3-5 дней",
-        category: "infections",
+        oldPrice: null,
+        deadline: "3-5 дней",
         biomaterial: "Соскоб кожи, ногтевая пластина",
         method: "ПЦР в режиме реального времени",
         description: "Молекулярно-генетическое исследование для выявления ДНК возбудителей дерматофитий (грибковых инфекций кожи, ногтей и волос).",
@@ -171,15 +216,83 @@ const MOCK_DATA: Analysis[] = [
             Дифференциальная диагностика дерматологических заболеваний.
             Контроль эффективности противогрибковой терапии.
         `,
-        synonyms: "Дерматофиты ПЦР, Грибковая инфекция ДНК, Trichophyton DNA, Microsporum DNA",
-        relatedIds: ["1", "5"],
         biomaterialPrice: 200,
-        discount: 5,
+        discount: 0,
+        badges: ["new"], // <--- НОВИНКА
+    },
+
+    // --- НОВЫЕ ДАННЫЕ (РАСШИРЕНИЕ) ---
+
+    // --- COVID-19 ---
+    {
+        id: "7",
+        article: "P639",
+        slug: "covid-pcr-urgent",
+        categorySlug: "pcr-test",
+        name: "Срочный ПЦР-тест на COVID-19",
+        price: 2500,
+        oldPrice: 3000,
+        deadline: "12 часов",
+        biomaterial: "Мазок",
+        description: "Результат день в день.",
+        biomaterialPrice: 300,
+        discount: 15,
+        badges: ["popular", "discount"],
+    },
+    {
+        id: "8",
+        article: "A001",
+        slug: "covid-antibodies-igg",
+        categorySlug: "antibody",
+        name: "Антитела к коронавирусу SARS-CoV-2 (IgG)",
+        price: 900,
+        oldPrice: null,
+        deadline: "1 день",
+        biomaterial: "Венозная кровь",
+        description: "Проверка иммунитета после болезни или прививки.",
+        biomaterialPrice: 200,
+        discount: 0,
+        badges: [],
+    },
+
+    // --- КОМПЛЕКСНЫЕ ПРОГРАММЫ ---
+    {
+        id: "9",
+        article: "C001",
+        slug: "woman-health-basic",
+        categorySlug: "woman-health",
+        name: "Женское здоровье: Базовый чек-ап",
+        price: 5500,
+        oldPrice: 7200,
+        deadline: "2 дня",
+        biomaterial: "Кровь, Моча",
+        description: "Комплексное обследование для женщин.",
+        biomaterialPrice: 400,
+        discount: 23,
+        badges: ["hit", "discount"],
+    },
+    {
+        id: "10",
+        article: "C002",
+        slug: "man-health-basic",
+        categorySlug: "man-health",
+        name: "Мужское здоровье: Базовый чек-ап",
+        price: 5500,
+        oldPrice: 7200,
+        deadline: "2 дня",
+        biomaterial: "Кровь",
+        description: "Комплексное обследование для мужчин.",
+        biomaterialPrice: 400,
+        discount: 23,
+        badges: ["discount"],
     }
 ];
 
+// --- API ФУНКЦИИ (Имитация Бэкенда) ---
+
 export async function getAnalyses(city: string): Promise<Analysis[]> {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // Имитация задержки сети
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return MOCK_DATA;
 }
 
@@ -188,7 +301,16 @@ export async function getAnalysisById(id: string): Promise<Analysis | undefined>
     return MOCK_DATA.find((item) => item.id === id);
 }
 
+// Хелперы для синхронной фильтрации (для каталога)
+export const getPopularAnalyses = (): Analysis[] => {
+    return MOCK_DATA.filter(item => item.badges?.includes('popular') || item.badges?.includes('hit'));
+};
+
+export const getAnalysesByCategory = (slug: string): Analysis[] => {
+    return MOCK_DATA.filter(item => item.categorySlug === slug);
+};
+
 export async function getRelatedAnalyses(ids: string[]): Promise<Analysis[]> {
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return MOCK_DATA.filter(item => ids.includes(item.id));
 }

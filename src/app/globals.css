@@ -28,6 +28,7 @@
 
   /* Текст */
   --text-main: #0F172A;
+  --text-primary: #B80E80;
   --text-main-dark: #1F2937;
   --text-brand: var(--color-brand-blue);
   --text-muted: #94A3B8;

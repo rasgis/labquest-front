@@ -41,7 +41,7 @@ export function MobileMenuNav({ onClose }: MobileMenuNavProps): React.ReactEleme
                 <MobileLink href="#" onClick={onClose}>
                     Выезд на дом
                 </MobileLink>
-                <MobileLink href="#" onClick={onClose}>
+                <MobileLink href="/q-clinic" onClick={onClose}>
                     Капельницы
                 </MobileLink>
                 <MobileLink href="#" onClick={onClose}>
@@ -73,7 +73,7 @@ export function MobileMenuNav({ onClose }: MobileMenuNavProps): React.ReactEleme
                     onToggle={() => toggleSection('franchise')}
                 >
                     <MobileLink href="#" onClick={onClose}>Q-Капельницы</MobileLink>
-                    <MobileLink href="#" onClick={onClose}>Labquest и Q-клиника</MobileLink>
+                    <MobileLink href="/q-clinic" onClick={onClose}>Labquest и Q-клиника</MobileLink>
                 </AccordionItem>
 
                 <AccordionItem

@@ -3,36 +3,71 @@
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui';
+
+interface NavDropdownItem {
+    label: string;
+    href: string;
+}
 
 interface NavDropdownProps {
     title: string;
-    items: { label: string; href: string }[];
+    href?: string;
+    items: NavDropdownItem[];
     className?: string;
+    variant?: 'default' | 'primary';
 }
 
-export function NavDropdown({ title, items, className }: NavDropdownProps) {
+export function NavDropdown({
+    title,
+    href = '#',
+    items,
+    className,
+    variant = 'default'
+}: NavDropdownProps) {
+
+    const styles = {
+        default: {
+            text: "text-text-main hover:text-brand-blue-secondary",
+            icon: "text-gray-400 group-hover:text-brand-blue-secondary",
+            dropdownItem: "text-text-main hover:bg-gray-50 hover:text-brand-blue-secondary"
+        },
+        primary: {
+            text: "text-text-main hover:text-primary",
+            icon: "text-gray-400 group-hover:text-primary",
+            dropdownItem: "text-text-main hover:bg-primary/5 hover:text-primary"
+        }
+    };
+
+    const currentStyle = styles[variant];
+
     return (
-        <div className="relative group flex items-center h-full">
-            <Button
-                variant="ghost"
+        <div className={cn("relative group h-full flex items-center", className)}>
+            <Link
+                href={href}
                 className={cn(
-                    "h-auto p-0 hover:bg-transparent",
-                    "flex items-center gap-1 text-xs font-bold text-text-main hover:text-brand-blue-secondary transition-colors py-1",
-                    className
+                    "flex items-center gap-1 transition-colors whitespace-nowrap py-4",
+                    currentStyle.text
                 )}
             >
                 {title}
-                <ChevronDown className="h-3 w-3 text-text-muted group-hover:text-brand-blue-secondary transition-transform duration-200 group-hover:rotate-180" />
-            </Button>
+                <ChevronDown
+                    className={cn(
+                        "w-3 h-3 xl:w-4 xl:h-4 transition-all duration-200 group-hover:rotate-180",
+                        currentStyle.icon
+                    )}
+                />
+            </Link>
 
-            <div className="absolute top-full left-0 pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="bg-white rounded-md shadow-xl border border-border overflow-hidden py-1 flex flex-col">
-                    {items.map((item, index) => (
+            <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 z-50">
+                <div className="bg-white border border-gray-100 shadow-xl rounded-xl overflow-hidden min-w-[200px] py-2 flex flex-col">
+                    {items.map((item) => (
                         <Link
-                            key={index}
+                            key={item.label}
                             href={item.href}
-                            className="px-4 py-2 text-xs font-medium text-text-main hover:bg-muted hover:text-brand-blue-secondary transition-colors text-left"
+                            className={cn(
+                                "px-5 py-2.5 text-sm transition-colors whitespace-nowrap text-left",
+                                currentStyle.dropdownItem
+                            )}
                         >
                             {item.label}
                         </Link>

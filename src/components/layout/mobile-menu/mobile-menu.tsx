@@ -27,7 +27,7 @@ export function MobileMenu(): React.ReactElement {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="fixed inset-x-0 bottom-16 top-[93px] z-60 bg-white flex flex-col overflow-hidden mt-1 md:hidden"
+                    className="fixed left-1/2 -translate-x-1/2 w-full max-w-[768px] bottom-0 top-[90px] z-50 bg-white flex flex-col overflow-hidden mt-0 lg:hidden"
                 >
                     <MobileMenuActions />
                     <MobileMenuPopular onClose={closeMobileMenu} />

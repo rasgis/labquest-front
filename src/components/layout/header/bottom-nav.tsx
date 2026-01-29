@@ -40,7 +40,7 @@ export function BottomNav(): React.ReactElement {
                             Популярные анализы
                         </Link>
                         <Link
-                            href="#"
+                            href="/onkonavigator"
                             className="flex items-center lg:gap-1.5 xl:gap-1.5 lg:px-2 xl:px-3 py-1.5 rounded-md lg:text-xs xl:text-sm font-medium text-text-main transition-all bg-brand-gradient"
                         >
                             <Image
@@ -72,10 +72,10 @@ export function BottomNav(): React.ReactElement {
                             />
                             Акции
                         </Link>
-                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Анализы<span className="lg:hidden xl:inline"> и цены</span></Link>
-                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Адреса<span className="lg:hidden xl:inline"> и офисы</span></Link>
-                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Запись<span className="lg:hidden xl:inline"> к врачу</span></Link>
-                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Капельницы</Link>
+                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Анализы<span className="lg:hidden xl:inline xl:ml-1"> и цены</span></Link>
+                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Адреса <span className="lg:hidden xl:inline xl:ml-1"> и офисы</span></Link>
+                        <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Запись<span className="lg:hidden xl:inline xl:ml-1"> к врачу</span></Link>
+                        <Link href="/q-clinic" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Капельницы</Link>
                         <Link href="#" className="flex flex-1 hover:text-brand-blue-secondary transition whitespace-nowrap">Check-Up</Link>
                         <Link href="#" className="hover:text-brand-blue-secondary transition">Q test - тест для самовзятия</Link>
                     </nav>
@@ -101,7 +101,7 @@ export function BottomNav(): React.ReactElement {
                             className="font-medium"
                             items={[
                                 { label: 'Q-Капельницы', href: '#' },
-                                { label: 'Labquest и Q-клиника', href: '#' },
+                                { label: 'Labquest и Q-клиника', href: '/q-clinic' },
                             ]}
                         />
 

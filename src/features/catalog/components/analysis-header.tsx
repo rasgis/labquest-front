@@ -28,7 +28,7 @@ export function AnalysisHeader({ analysis }: AnalysisHeaderProps) {
                     )}
 
                     <div className="text-text-muted">Срок исполнения:</div>
-                    <div className="font-medium text-text-main">{analysis.time}</div>
+                    <div className="font-medium text-text-main">{analysis.deadline}</div>
                 </div>
             </div>
 

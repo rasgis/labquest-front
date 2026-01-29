@@ -32,7 +32,6 @@ export function AnalysisCard({ analysis }: AnalysisCardProps): React.ReactElemen
                 name: analysis.name,
                 price: analysis.price,
                 article: analysis.article,
-                discount: analysis.discount,
             });
         }
     };

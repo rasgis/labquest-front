@@ -25,14 +25,14 @@ export function TopBar() {
                 <Button
                     variant="ghost"
                     size="sm"
-                    className="h-auto p-0 text-gray-600 hover:text-primary hover:bg-transparent gap-1 font-medium text-xs"
+                    className="h-auto p-0 text-gray-600 hover:text-brand-blue-secondary hover:bg-transparent gap-1 font-medium text-xs"
                 >
                     <span className="capitalize">{cityName}</span>
                     <ChevronDown className="h-4 w-4" />
                 </Button>
 
                 <div className="flex items-center gap-6">
-                    <Link href="/auth/login" className="flex items-center gap-2 text-gray-600 hover:text-primary transition group">
+                    <Link href="/auth/login" className="flex items-center gap-2 text-gray-600 hover:text-brand-blue-secondary transition group">
                         <Image
                             src="/icons/button-icons/profile.svg"
                             alt="Вход"
@@ -40,10 +40,10 @@ export function TopBar() {
                             height={20}
                             className="w-5 h-5 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                         />
-                        <span className="font-medium text-brand-blue group-hover:text-primary transition-colors">Войти</span>
+                        <span className="font-medium text-brand-blue group-hover:text-brand-blue-secondary transition-colors">Войти</span>
                     </Link>
 
-                    <Link href="/basket" className="flex items-center gap-2 text-gray-600 hover:text-primary transition group">
+                    <Link href="/basket" className="flex items-center gap-2 text-gray-600 hover:text-brand-blue-secondary transition group">
                         <div className="relative">
                             <Image
                                 src="/icons/button-icons/basket.svg"
@@ -58,7 +58,7 @@ export function TopBar() {
                                 </span>
                             )}
                         </div>
-                        <span className="font-medium text-brand-blue group-hover:text-primary transition-colors">Корзина</span>
+                        <span className="font-medium text-brand-blue group-hover:text-brand-blue-secondary transition-colors">Корзина</span>
                     </Link>
                 </div>
             </div>
