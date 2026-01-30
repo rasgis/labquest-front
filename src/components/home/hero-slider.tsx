@@ -158,7 +158,7 @@ export function HeroSlider() {
                         <Button
                             onClick={() => swiperRef.current?.slidePrev()}
                             variant="lime"
-                            className="w-12 h-12 p-0 rounded-lg shadow-none"
+                            className="w-12 h-12 p-0 rounded-lg"
                             aria-label="Previous slide"
                         >
                             <ChevronLeft className="w-6 h-6" />
@@ -166,7 +166,7 @@ export function HeroSlider() {
                         <Button
                             onClick={() => swiperRef.current?.slideNext()}
                             variant="lime"
-                            className="w-12 h-12 p-0 rounded-lg shadow-none"
+                            className="w-12 h-12 p-0 rounded-lg"
                             aria-label="Next slide"
                         >
                             <ChevronRight className="w-6 h-6" />

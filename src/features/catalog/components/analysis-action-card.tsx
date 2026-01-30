@@ -43,18 +43,20 @@ export function AnalysisActionCard({ analysis }: AnalysisActionCardProps) {
                 </div>
 
                 <div className="flex gap-3">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className={cn(
-                            "flex-1 items-center justify-center gap-2 h-10 text-xs sm:text-sm transition-colors border font-medium px-2",
-                            "bg-bg-blue-soft border-brand-blue-secondary text-brand-blue",
-                            "hover:bg-bg-blue-soft-hover hover:border-brand-blue hover:text-brand-blue"
-                        )}
-                    >
-                        <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-brand-blue group-hover:text-primary transition-colors shrink-0" />
-                        <span className="whitespace-nowrap">Выезд на дом</span>
-                    </Button>
+                    {analysis.homeVisit && (
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className={cn(
+                                "flex-1 items-center justify-center gap-2 h-10 text-xs sm:text-sm transition-colors border font-medium px-2",
+                                "bg-bg-blue-soft border-brand-blue-secondary text-brand-blue",
+                                "hover:bg-bg-blue-soft-hover hover:border-brand-blue hover:text-brand-blue"
+                            )}
+                        >
+                            <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-brand-blue group-hover:text-primary transition-colors shrink-0" />
+                            <span className="whitespace-nowrap">Выезд на дом</span>
+                        </Button>
+                    )}
 
                     <Button
                         variant="lime"

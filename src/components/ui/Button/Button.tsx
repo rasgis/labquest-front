@@ -10,7 +10,7 @@ const buttonVariants = cva(
       variant: {
         primary: 'bg-primary text-primary-foreground hover:bg-primary-hover shadow-sm', // малиновый
         blue: 'bg-brand-blue text-white hover:bg-brand-blue-secondary shadow-sm', // синий
-        lime: 'bg-lime-lab text-lime-lab-foreground hover:bg-lime-lab-hover shadow-sm font-bold', // лайм
+        lime: 'bg-lime-lab text-lime-lab-foreground hover:shadow-brand-purple shadow-sm font-bold transition-shadow duration-300', // лайм
         destructive: 'bg-destructive text-destructive-foreground hover:bg-red-700 shadow-sm', // красный
         outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground', // контурный
         secondary: 'bg-muted text-gray-900 hover:bg-gray-200', // вторичный

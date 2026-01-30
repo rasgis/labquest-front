@@ -52,7 +52,7 @@ export function AnalysisCard({ analysis }: AnalysisCardProps): React.ReactElemen
                             href={`/${currentCity}/analysis/${analysis.id}`}
                             className="order-1 md:order-2 block group"
                         >
-                            <h3 className="text-lg md:text-xl font-medium text-text-main group-hover:text-primary transition-colors leading-tight">
+                            <h3 className="text-lg md:text-xl font-medium text-text-main group-hover:text-brand-purple transition-colors leading-tight">
                                 {analysis.name}
                             </h3>
                         </Link>
@@ -71,18 +71,20 @@ export function AnalysisCard({ analysis }: AnalysisCardProps): React.ReactElemen
                 </div>
 
                 <div className="shrink-0 flex flex-row md:flex-col gap-3 w-full md:w-[200px] mt-2 md:mt-0">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className={cn(
-                            "flex-1 md:flex-none w-full justify-center gap-2 md:gap-3 h-10 text-sm transition-colors border font-medium",
-                            "bg-bg-blue-soft border-brand-blue-secondary text-brand-blue",
-                            "hover:bg-bg-blue-soft-hover hover:border-brand-blue hover:text-brand-blue"
-                        )}
-                    >
-                        <Clock className="w-5 h-5 text-brand-blue group-hover:text-primary transition-colors" />
-                        <span className="whitespace-nowrap">Выезд на дом</span>
-                    </Button>
+                    {analysis.homeVisit && (
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className={cn(
+                                "flex-1 md:flex-none w-full justify-center gap-2 md:gap-3 h-10 text-sm transition-colors border font-medium",
+                                "bg-bg-blue-soft border-brand-blue-secondary text-brand-blue",
+                                "hover:bg-bg-blue-soft-hover hover:border-brand-blue hover:text-brand-blue"
+                            )}
+                        >
+                            <Clock className="w-5 h-5 text-brand-blue group-hover:text-primary transition-colors" />
+                            <span className="whitespace-nowrap">Выезд на дом</span>
+                        </Button>
+                    )}
 
                     <Button
                         variant="lime"

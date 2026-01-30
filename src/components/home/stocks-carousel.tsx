@@ -53,7 +53,7 @@ export function StocksCarousel() {
                     <h2 className="text-xl md:text-3xl font-bold text-text-main">
                         Акции и скидки
                     </h2>
-                    <Link href="/stocks" className="hidden md:flex items-center gap-1 text-sm font-bold text-brand-blue hover:text-primary transition-colors">
+                    <Link href="/stocks" className="hidden md:flex items-center gap-1 text-sm font-bold text-brand-blue hover:text-brand-blue-secondary transition-colors">
                         Все акции
                         <ChevronRight className="h-4 w-4" />
                     </Link>
@@ -102,7 +102,7 @@ export function StocksCarousel() {
                                             <span className="text-[10px] md:text-xs font-medium text-text-muted">
                                                 Срок акции<br className="md:hidden" /> {stock.date}
                                             </span>
-                                            <h3 className="text-sm md:text-lg font-bold text-text-main leading-tight md:leading-snug group-hover:text-primary transition-colors whitespace-pre-line line-clamp-3">
+                                            <h3 className="text-sm md:text-lg font-bold text-text-main leading-tight md:leading-snug group-hover:text-brand-blue-secondary transition-colors whitespace-pre-line line-clamp-3">
                                                 {stock.title}
                                             </h3>
                                         </div>
@@ -114,14 +114,16 @@ export function StocksCarousel() {
 
                     <div className="hidden md:flex justify-end gap-3 mt-8">
                         <Button
+                            variant="lime"
                             onClick={() => swiperRef.current?.slidePrev()}
-                            className="w-12 h-12 p-0 bg-lime-lab hover:bg-lime-lab-hover text-text-main rounded-lg shadow-none"
+                            className="w-12 h-12 p-0 rounded-lg"
                         >
                             <ChevronLeft className="w-6 h-6" />
                         </Button>
                         <Button
+                            variant="lime"
                             onClick={() => swiperRef.current?.slideNext()}
-                            className="w-12 h-12 p-0 bg-lime-lab hover:bg-lime-lab-hover text-text-main rounded-lg shadow-none"
+                            className="w-12 h-12 p-0 rounded-lg"
                         >
                             <ChevronRight className="w-6 h-6" />
                         </Button>

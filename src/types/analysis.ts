@@ -4,6 +4,7 @@ export interface Analysis {
     id: string; // ID анализа
     article: string; // Код анализа
     slug: string; // Слаг анализа (для URL)
+    limit?: number;            // Ограничение для пагинации
 
     // Основная информация
     name: string; // Название анализа
@@ -11,7 +12,6 @@ export interface Analysis {
 
     // Цена и скидка
     price: number; // Цена анализа
-    oldPrice?: number | null; // Старая цена (для зачеркивания)
     discount?: number | null; // Процент скидки
     biomaterialPrice: number; // Стоимость взятия биоматериала
 
@@ -26,10 +26,10 @@ export interface Analysis {
 
     // Связи
     categorySlug: string; // Ссылка на категорию
-    relatedIds?: string[]; // Сопутствующие (похожие) анализы
 
     // UI Флаги (для карточки)
     badges?: ('popular' | 'new' | 'discount' | 'hit')[];
+    homeVisit?: boolean; // true = выезд возможен, false = нет
 
 }
 
@@ -37,7 +37,6 @@ export interface Category {
     id: number;
     slug: string;
     name: string;
-    productsCount: number;
     children?: Category[];
 }
 

@@ -1,31 +1,20 @@
-import axios, { AxiosError, AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosResponse, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import { env } from '@/env';
 
-const apiClient = axios.create({
-  baseURL: env.NEXT_PUBLIC_API_URL,
-  withCredentials: true, // разрешает отправку HttpOnly cookies
+// 1. Создаем инстанс
+const axiosInstance = axios.create({
+  baseURL: env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Хелпер для получения CSRF токена из куки (не HttpOnly)
-// бэкенд кладет CSRF токен в куку 'XSRF-TOKEN' или 'csrf_token'
-// function getCsrfToken() {
-//   if (typeof document === 'undefined') return null;
-//   const match = document.cookie.match(new RegExp('(^| )XSRF-TOKEN=([^;]+)'));
-//   return match ? decodeURIComponent(match[2]) : null;
-// }
-
-// Пока не знаю что будет отдавать бэк, перестрахуемся циклами проверок чтобы не было ошибок
 function getCsrfToken(): string | null {
   if (typeof document === 'undefined') return null;
-
-  // Ищем куку с именем XSRF-TOKEN
   const name = 'XSRF-TOKEN=';
   const decodedCookie = decodeURIComponent(document.cookie);
   const ca = decodedCookie.split(';');
-
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i] || '';
     while (c.charAt(0) === ' ') {
@@ -38,9 +27,8 @@ function getCsrfToken(): string | null {
   return null;
 }
 
-// 2. Request Interceptor (Добавляем CSRF токен)
-apiClient.interceptors.request.use((config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-  // Для мутирующих запросов добавляем CSRF защиту
+// Request Interceptor (CSRF)
+axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
   if (['post', 'put', 'delete', 'patch'].includes(config.method?.toLowerCase() || '')) {
     const csrfToken = getCsrfToken();
     if (csrfToken) {
@@ -50,29 +38,81 @@ apiClient.interceptors.request.use((config: InternalAxiosRequestConfig): Interna
   return config;
 });
 
-// 3. Response Interceptor (Обработка ошибок авторизации)
-apiClient.interceptors.response.use(
+// Response Interceptor (Auth Errors)
+axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError): Promise<never> => {
     const originalRequest = error.config;
 
-    // Ошибка 401 (Unauthorized) - истек токен
     if (error.response?.status === 401 && originalRequest) {
-      // Здесь позже будем обновлять токен, если API поддерживает refresh endpoint
-      // Для начала просто делаем редирект на логин, чтобы не усложнять 
       if (typeof window !== 'undefined') {
-        window.location.href = '/auth/login';
+        // window.location.href = '/auth/login'; // когда будет страница логина
+        console.warn('Unauthorized: Redirect to login');
       }
     }
-
-    // Ошибка 403 (Forbidden) - нет прав
     if (error.response?.status === 403) {
       console.error('Доступ запрещен (403)');
-      // потом будет редирект на /403
     }
-
     return Promise.reject(error);
   }
 );
 
-export default apiClient;
+
+// Расширяем стандартный конфиг axios, добавляя туда city
+interface CustomRequestOptions extends AxiosRequestConfig {
+  city?: string;
+}
+
+// Эта обертка решает две задачи:
+// 1. Вытаскивает 'city' из опций и кладет его в заголовок 'X-City-ID'
+// 2. Сразу возвращает response.data
+
+export const apiClient = {
+  get: <T>(url: string, options: CustomRequestOptions = {}): Promise<T> => {
+    const { city, headers, ...rest } = options;
+
+    return axiosInstance.get<T>(url, {
+      ...rest,
+      headers: {
+        ...headers,
+        ...(city && { 'X-City-ID': city }), // здесь добавляем заголовок, если есть город
+      },
+    }).then(response => response.data);
+  },
+
+  post: <T>(url: string, data?: any, options: CustomRequestOptions = {}): Promise<T> => {
+    const { city, headers, ...rest } = options;
+
+    return axiosInstance.post<T>(url, data, {
+      ...rest,
+      headers: {
+        ...headers,
+        ...(city && { 'X-City-ID': city }),
+      },
+    }).then(response => response.data);
+  },
+
+  put: <T>(url: string, data?: any, options: CustomRequestOptions = {}): Promise<T> => {
+    const { city, headers, ...rest } = options;
+    return axiosInstance.put<T>(url, data, {
+      ...rest,
+      headers: {
+        ...headers,
+        ...(city && { 'X-City-ID': city }),
+      },
+    }).then(response => response.data);
+  },
+
+  delete: <T>(url: string, options: CustomRequestOptions = {}): Promise<T> => {
+    const { city, headers, ...rest } = options;
+    return axiosInstance.delete<T>(url, {
+      ...rest,
+      headers: {
+        ...headers,
+        ...(city && { 'X-City-ID': city }),
+      },
+    }).then(response => response.data);
+  },
+};
+
+export { axiosInstance };
